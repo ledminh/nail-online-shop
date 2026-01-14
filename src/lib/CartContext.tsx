@@ -6,8 +6,8 @@ import { CartItem, Product } from '@/types';
 interface CartContextType {
   cart: CartItem[];
   addToCart: (product: Product, selectedColor?: string) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: string, selectedColor?: string) => void;
+  updateQuantity: (productId: string, selectedColor: string | undefined, quantity: number) => void;
   clearCart: () => void;
   getTotal: () => number;
 }
@@ -35,19 +35,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeFromCart = (productId: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  const removeFromCart = (productId: string, selectedColor?: string) => {
+    setCart((prevCart) => 
+      prevCart.filter((item) => 
+        !(item.id === productId && item.selectedColor === selectedColor)
+      )
+    );
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (productId: string, selectedColor: string | undefined, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, selectedColor);
       return;
     }
 
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
+        item.id === productId && item.selectedColor === selectedColor 
+          ? { ...item, quantity } 
+          : item
       )
     );
   };

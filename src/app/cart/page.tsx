@@ -57,7 +57,7 @@ export default function CartPage() {
                 <div className="flex items-center gap-3">
                   <div className="flex items-center border border-gray-300 rounded-lg">
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.id, item.selectedColor, item.quantity - 1)}
                       className="px-3 py-1 hover:bg-gray-100 transition"
                     >
                       -
@@ -66,7 +66,7 @@ export default function CartPage() {
                       {item.quantity}
                     </span>
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.selectedColor, item.quantity + 1)}
                       className="px-3 py-1 hover:bg-gray-100 transition"
                     >
                       +
@@ -74,7 +74,7 @@ export default function CartPage() {
                   </div>
 
                   <button
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => removeFromCart(item.id, item.selectedColor)}
                     className="text-red-600 hover:text-red-700 font-semibold"
                   >
                     Remove

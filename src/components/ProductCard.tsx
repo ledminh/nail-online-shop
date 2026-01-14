@@ -37,7 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </h3>
         </Link>
         
-        <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+        <p className="text-gray-600 text-sm mt-2 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' } as React.CSSProperties}>
           {product.description}
         </p>
         
